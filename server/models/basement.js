@@ -16,13 +16,13 @@ const basementSchema = new Schema({
     type: String,
   },
   saved: {
-    type: Integer,
+    type: Number,
   },
   volume: {
-    type: Integer,
+    type: Number,
   },
   total: {
-    type: Integer,
+    type: Number,
   },
   createdAt: {
     type: Date,
