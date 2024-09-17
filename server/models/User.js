@@ -5,7 +5,7 @@ const userSchema = new Schema({
       type: String,
     },
     password: {
-      type: integer,
+      type: Number,
     },
     createdAt: {
       type: Date,

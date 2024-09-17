@@ -8,7 +8,7 @@ const moneySchema = new Schema({
       type: String,
     },
     volume: {
-      type: integer,
+      type: Number,
     },
 }
 );
