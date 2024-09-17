@@ -1,17 +1,19 @@
 .create-basement {
-    background-color: #e6e6fa; /* Lavender */
-    padding: 20px;
-    border-radius: 10px;
-    margin: auto;
-    text-align: center;
-  }
-  
-  .create-basement h1 {
-    color: #9370db; /* MediumPurple */
-  }
-  
-  .create-basement div {
-    margin-bottom: 10px;
-    font-size: large;
-  }
+  background-color: #e6e6fa; /* Lavender */
+  width: 70%; /* Take up more of the page */
+  padding: 40px;
+  border-radius: 10px;
+  margin: 50px auto; /* Center the container */
+  text-align: center;
+}
+
+.create-basement h1 {
+  color: #9370db; /* MediumPurple */
+}
+
+.create-basement div {
+  margin-bottom: 20px;
+  font-size: large;
+}
+
   
