@@ -1,0 +1,30 @@
+.basement1 {
+    background-color: #fffacd; /* LemonChiffon */
+    padding: 20px;
+    border-radius: 10px;
+    margin: auto;
+    text-align: center;
+  }
+  
+  .basement1 h1 {
+    color: #daa520; /* GoldenRod */
+  }
+  
+  .basement1 div {
+    margin-bottom: 20px;
+    font-size: large;
+  }
+  
+  .basement1 button {
+    background-color: #add8e6; /* light blue */
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+  }
+  
+  .basement1 button:hover {
+    background-color: #87ceeb; /* sky blue */
+  }
+  

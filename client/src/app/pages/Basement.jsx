@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './css/Basement.css';
 
 function Basement1() {
   const [value, setValue] = useState(10000000);
