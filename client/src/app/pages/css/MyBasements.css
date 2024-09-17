@@ -1,28 +1,29 @@
 .my-basements {
-    background-color: #f0f8ff; /* AliceBlue */
-    padding: 20px;
-    border-radius: 10px;
-    margin: auto;
-    text-align: center;
-  }
-  
-  .my-basements h1 {
-    color: #4682b4; /* SteelBlue */
-  }
-  
-  .my-basements div {
-    margin-bottom: 10px;
-  }
-  
-  .my-basements button {
-    background-color: #add8e6; /* light blue */
-    border: none;
-    border-radius: 5px;
-    padding: 10px;
-    cursor: pointer;
-  }
-  
-  .my-basements button:hover {
-    background-color: #87ceeb; /* sky blue */
-  }
-  
+  background-color: #f0f8ff; /* AliceBlue */
+  width: 70%; /* Take up more of the page */
+  padding: 40px;
+  border-radius: 10px;
+  margin: 50px auto; /* Center the container */
+  text-align: center;
+}
+
+.my-basements h1 {
+  color: #4682b4; /* SteelBlue */
+}
+
+.my-basements div {
+  margin-bottom: 20px;
+}
+
+.my-basements button {
+  width: 60%; /* Adjust width to fit the larger container */
+  background-color: #add8e6; /* light blue */
+  border: none;
+  border-radius: 5px;
+  padding: 15px;
+  cursor: pointer;
+}
+
+.my-basements button:hover {
+  background-color: #87ceeb; /* sky blue */
+}

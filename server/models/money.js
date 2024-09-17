@@ -1,7 +1,18 @@
 const { Schema, model } = require("mongoose");
 
-const moneySchema = new Schema();
+const moneySchema = new Schema({
+    name: {
+      type: String,
+    },
+    description: {
+      type: String,
+    },
+    volume: {
+      type: integer,
+    },
+}
+);
 
-const Money = model("Money", moneySchema);
+const money = model("money", moneySchema);
 
-module.exports = Money;
+module.exports = money;
