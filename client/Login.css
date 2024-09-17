@@ -1,0 +1,34 @@
+.login-container {
+    background-color: #f0e68c; /* light yellow */
+    width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    margin: auto;
+    text-align: center;
+  }
+  
+  .login-container h1 {
+    color: #000080; /* navy blue */
+  }
+  
+  .greeting {
+    font-size: large;
+    margin-bottom: 20px;
+  }
+  
+  #login,
+  #create-account {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #add8e6; /* light blue */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #login:hover,
+  #create-account:hover {
+    background-color: #87ceeb; /* sky blue */
+  }
+  
