@@ -1,9 +1,11 @@
 .my-basements {
-  background-color: #f0f8ff; /* AliceBlue */
-  width: 70%; /* Take up more of the page */
+  background-color: #fffacd; /* LemonChiffon */
+  width: 200%; /* Take up more of the page */
   padding: 40px;
   border-radius: 10px;
-  margin: 50px auto; /* Center the container */
+  margin: 50px auto; /* This centers the container horizontally */
+  margin-left: -200px; /* Adjust this value to make the left margin smaller */
+  margin: right 200px;
   text-align: center;
 }
 
@@ -16,7 +18,7 @@
 }
 
 .my-basements button {
-  width: 60%; /* Adjust width to fit the larger container */
+  width: 50%; /* Adjust width to fit the larger container */
   background-color: #add8e6; /* light blue */
   border: none;
   border-radius: 5px;
