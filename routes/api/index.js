@@ -5,6 +5,6 @@ const userRoutes = require('./user-routes');
 
 router.use('/basement', basementRoutes);
 router.use('/money', moneyRoutes);
-router.use('/user', userRoutes);
+router.use('/User', userRoutes);
 
 module.exports = router;

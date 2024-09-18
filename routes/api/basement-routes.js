@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const { Category, Product } = require('../../models');
 
-// The `/api/categories` endpoint
-// Skeletons until we brainstorm what we need from the graph api
+
+// Skeletons until we brainstorm what we need from the graph api / routes
 
 router.get('/', (req, res) => {
   // find all categories
