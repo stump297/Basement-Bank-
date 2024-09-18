@@ -8,7 +8,7 @@ body {
 }
 
 .create-basement {
-  background-color: #e6e6fa; /* Lavender */
+  background-color: #fffacd; /* LemonChiffon */
   width: 70%; /* Take up more of the page */
   max-width: 800px; /* Ensure it doesn't get too wide */
   padding: 40px;
@@ -18,10 +18,34 @@ body {
 }
 
 .create-basement h1 {
-  color: #9370db; /* MediumPurple */
+  color: #0d2b70ba; 
 }
 
 .create-basement div {
   margin-bottom: 20px;
   font-size: large;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: large;
+}
+
+.create-button {
+  background-color:#0d2b70ba; 
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 5px;
+  font-size: large;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.create-button:hover {
+  background-color: #42c131; 
 }

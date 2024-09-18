@@ -1,12 +1,16 @@
 .user-form-container {
-    background-color: #f9f9f9;
-    width: 50%;
-    padding: 20px;
-    border-radius: 10px;
-    margin: 50px auto;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
+  background-color: #ecd666;
+  width: 50%; /* Adjust the width as needed */
+  padding: 20%;
+  border-radius: 10px;
+  margin: 200px auto; /* This centers the container horizontally */
+  margin-left: 50px; /* Adjust this value to make the left margin smaller */
+  margin-right: 300px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
   
   .user-form-container h2 {
     color: #333;
@@ -38,7 +42,7 @@
   button {
     padding: 10px 20px;
     background-color: #4CAF50;
-    color: white;
+    color: rgb(3, 5, 32);
     border: none;
     border-radius: 5px;
     cursor: pointer;
