@@ -8,7 +8,7 @@ function Login() {
       <h1>Welcome to Basement Bank</h1>
       <div className="greeting">Hello</div>
       <Link to="/my-basements"><button id="login">Login</button></Link>
-      <Link to="/create"><button id="create-account">Create Account</button></Link>
+      <Link to="/create-user"><button id="create-user">Create User</button></Link>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Category, Product } = require('../../models');
+const { Basement, Money, User } = require('../../models');
 
 
 // Skeletons until we brainstorm what we need from the graph api / routes
