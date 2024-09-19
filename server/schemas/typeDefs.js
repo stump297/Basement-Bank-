@@ -1,26 +1,42 @@
-const typeDefs = `
-  type Tech {
-    _id: ID!
-    name: String!
+const typeDefs = gql`
+  # User Type
+  type User {
+    id: ID!
+    username: String!
+    email: String!
   }
 
-  type Matchup {
-    _id: ID!
-    tech1: String!
-    tech2: String!
-    tech1_votes: Int
-    tech2_votes: Int
+  # Room Type
+  type Room {
+    id: ID!
+    length: Float!
+    width: Float!
+    height: Float!
+    savings: Float!
+    user: User!
   }
 
+  # Auth Payload for returning token and user on login/register
+  type AuthPayload {
+    token: String!
+    user: User!
+  }
+
+  # Queries
   type Query {
-    tech: [Tech]
-    matchups(_id: String): [Matchup]
+    getUser: User!
+    getRooms: [Room!]!
   }
 
+  # Mutations
   type Mutation {
-    createMatchup(tech1: String!, tech2: String!): Matchup
-    createVote(_id: String!, techNum: Int!): Matchup
+    register(username: String!, email: String!, password: String!): AuthPayload!
+    login(email: String!, password: String!): AuthPayload!
+    addRoom(length: Float!, width: Float!, height: Float!, savings: Float!): Room!
+    updateRoom(id: ID!, length: Float, width: Float,height: Float!, savings: Float): Room!
+    deleteRoom(id: ID!): Boolean!
   }
 `;
 
 module.exports = typeDefs;
+

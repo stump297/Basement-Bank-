@@ -1,27 +1,105 @@
-const { Tech, Matchup } = require('../models');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const User = require('../models/User');
+const Room = require('../models/basement');
+require('dotenv').config();
 
 const resolvers = {
+  // Queries
   Query: {
-    tech: async () => {
-      return Tech.find({});
+    getUser: async (_, __, { user }) => {
+      if (!user) throw new Error('You are not authenticated!');
+      return await User.findById(user.id);
     },
-    matchups: async (parent, { _id }) => {
-      const params = _id ? { _id } : {};
-      return Matchup.find(params);
+
+    getRooms: async (_, __, { user }) => {
+      if (!user) throw new Error('You are not authenticated!');
+      return await Room.find({ user: user.id });
     },
   },
+
+  // Mutations
   Mutation: {
-    createMatchup: async (parent, args) => {
-      const matchup = await Matchup.create(args);
-      return matchup;
+    register: async (_, { username, email, password }) => {
+      const existingUser = await User.findOne({ email });
+      if (existingUser) throw new Error('User already exists');
+
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      const newUser = new User({
+        username,
+        email,
+        password: hashedPassword,
+      });
+
+      const savedUser = await newUser.save();
+      const token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+      return {
+        token,
+        user: savedUser,
+      };
     },
-    createVote: async (parent, { _id, techNum }) => {
-      const vote = await Matchup.findOneAndUpdate(
-        { _id },
-        { $inc: { [`tech${techNum}_votes`]: 1 } },
-        { new: true }
-      );
-      return vote;
+
+    login: async (_, { email, password }) => {
+      const user = await User.findOne({ email });
+      if (!user) throw new Error('User not found');
+
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) throw new Error('Invalid credentials');
+
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+      return {
+        token,
+        user,
+      };
+    },
+
+    addRoom: async (_, { length, width, height, savings }, { user }) => {
+      if (!user) throw new Error('You are not authenticated!');
+
+      const newRoom = new Room({
+        length,
+        width,
+        height,
+        savings,
+        user: user.id,
+      });
+
+      return await newRoom.save();
+    },
+
+    updateRoom: async (_, { id, length, width, height, savings }, { user }) => {
+      if (!user) throw new Error('You are not authenticated!');
+
+      const room = await Room.findById(id);
+      if (!room) throw new Error('Room not found');
+
+      if (room.user.toString() !== user.id) {
+        throw new Error('You do not have permission to update this room');
+      }
+
+      room.length = length || room.length;
+      room.width = width || room.width;
+      room.height = width || room.height;
+      room.savings = savings || room.savings;
+
+      return await room.save();
+    },
+
+    deleteRoom: async (_, { id }, { user }) => {
+      if (!user) throw new Error('You are not authenticated!');
+
+      const room = await Room.findById(id);
+      if (!room) throw new Error('Room not found');
+
+      if (room.user.toString() !== user.id) {
+        throw new Error('You do not have permission to delete this room');
+      }
+
+      await room.remove();
+      return true;
     },
   },
 };

@@ -1,35 +1,26 @@
-const { Schema, model } = require("mongoose");
+const mongoose = require('mongoose');
 
-const basementSchema = new Schema({
-  name: {
-    type: String,
+const BasementSchema = new mongoose.Schema({
+  length: {
+    type: Number,
+    required: true,
   },
-  user_id: {
-    type: Schema.Types.ObjectId,
-    ref: 'user',
+  width: {
+    type: Number,
+    required: true,
   },
-  money_id: {
-    type: Schema.Types.ObjectId,
-    ref: 'money',
+  height: {
+    type: Number,
+    required: true,
   },
   description: {
-    type: String,
-  },
-  saved: {
     type: Number,
+    required: true,
   },
-  volume: {
+  savings: {
     type: Number,
-  },
-  total: {
-    type: Number,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
+    required: true,
   },
 });
 
-const basement = model("basement", basementSchema);
-
-module.exports = basement;
+module.exports = mongoose.model('basement', BasementSchema);

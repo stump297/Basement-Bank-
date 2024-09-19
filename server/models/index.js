@@ -1,7 +1,4 @@
-const Basement = require("./basement");
-const Money = require("./money");
-const User = require("./User");
+const User = require('./User');
+const Room = require('./Room');
 
-module.exports = { Money };
-module.exports = { Basement };
-module.exports = { User };
+module.exports = { User, Room, };
