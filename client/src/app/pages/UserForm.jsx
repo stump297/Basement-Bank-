@@ -13,11 +13,12 @@ function UserForm() {
       setMessage('All fields are required');
       return;
     }
-    // Here you would typically send the data to your server
+    //TODO: Replace this and send data to server side
     console.log({ name, email, password });
     setMessage('User created successfully!');
+
     // Clear the form
-    setName('');
+    setName(''); 
     setEmail('');
     setPassword('');
   };

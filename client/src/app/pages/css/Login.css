@@ -1,31 +1,44 @@
-.my-basements {
-  background-color: #f0f8ff; /* AliceBlue */
-  width: 70%; /* Take up more of the page */
-  padding: 40px;
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0; /* light grey background for the whole page */
+}
+
+.login-container {
+  background-color: #f0e68c; /* light yellow */
+  width: 200%; /* Adjust the width as needed */
+  max-width: 600px; /* Ensure it doesn't get too wide */
+  height: 200%; /* Adjust the height as needed */
+  padding: 40px; /* Increase padding for more space inside the container */
   border-radius: 10px;
-  margin: 50px auto; /* Center the container */
   text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for better visibility */
 }
 
-.my-basements h1 {
-  color: #4682b4; /* SteelBlue */
+.login-container h1 {
+  color: #000080; /* navy blue */
 }
 
-.my-basements div {
+.greeting {
+  font-size: large;
   margin-bottom: 20px;
 }
 
-.my-basements button {
-  width: 60%; /* Adjust width to fit the larger container */
+#login,
+#create-user {
+  width: 100%;
+  padding: 15px; /* Increase padding for larger buttons */
+  margin-bottom: 15px; /* Increase margin for more space between buttons */
   background-color: #add8e6; /* light blue */
   border: none;
   border-radius: 5px;
-  padding: 15px;
   cursor: pointer;
 }
 
-.my-basements button:hover {
+#login:hover,
+#create-user:hover {
   background-color: #87ceeb; /* sky blue */
 }
-
-  
