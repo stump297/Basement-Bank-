@@ -26,7 +26,7 @@ export const UPDATE_ROOM = gql`
   }
 `;
 
-export const ADD_User = gpl`
+export const ADD_User = gql`  
 mutation Register($username: String!, $email: String!, $password: String!) {
   register(username: $username, email: $email, password: $password) {
     username
