@@ -25,3 +25,13 @@ export const UPDATE_ROOM = gql`
     }
   }
 `;
+
+export const ADD_User = gpl`
+mutation Register($username: String!, $email: String!, $password: String!) {
+  register(username: $username, email: $email, password: $password) {
+    username
+    email
+    password
+  }
+}
+`;
