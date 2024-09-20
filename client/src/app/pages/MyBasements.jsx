@@ -1,31 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { GET_BASEMENTS } from './queries';
 import './css/MyBasements.css';
 
 function MyBasements() {
-  const [basements, setBasements] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    // Fetch basements data
-    const fetchBasements = async () => {
-      try {
-        const response = await fetch('/api/basements'); //just here until api is set up 
-        const data = await response.json();
-        setBasements(data);
-        setLoading(false);
-      } catch (err) {
-        setError(err.message);
-        setLoading(false);
-      }
-    };
-
-    fetchBasements();
-  }, []);
+  const { loading, error, data } = useQuery(GET_BASEMENTS);
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  const { basements } = data;
 
   return (
     <div className="my-basements">
@@ -43,5 +28,3 @@ function MyBasements() {
 }
 
 export default MyBasements;
-
-

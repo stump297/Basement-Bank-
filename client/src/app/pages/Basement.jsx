@@ -1,49 +1,41 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React from 'react';
+import { useQuery } from '@apollo/client';
+import { GET_ROOMS, GET_USER } from './queries';
 import './css/Basement.css';
 
-
-
-
 function Basement() {
-  const { id } = useParams();
-  const [basement, setBasement] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { loading: loadingRooms, error: errorRooms, data: dataRooms } = useQuery(GET_ROOMS);
+  const { loading: loadingUser, error: errorUser, data: dataUser } = useQuery(GET_USER);
 
-  useEffect(() => {
-    // Fetch basement data based on the ID
-    const fetchBasement = async () => {
-      try {
-        const response = await fetch(`/api/basement/${id}`); //just here until the actual route is figured out
-        const data = await response.json();
-        setBasement(data);
-        setLoading(false);
-      } catch (err) {
-        setError(err.message);
-        setLoading(false);
-      }
-    };
+  if (loadingRooms || loadingUser) return <p>Loading...</p>;
+  if (errorRooms) return <p>Error loading rooms: {errorRooms.message}</p>;
+  if (errorUser) return <p>Error loading user: {errorUser.message}</p>;
 
-    fetchBasement();
-  }, [id]);
+  const { getRooms: rooms } = dataRooms;
+  const { getUser: user } = dataUser;
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  // Calculate total volume
+  const totalVolume = rooms.reduce((acc, room) => acc + (room.length * room.width * room.height), 0);
 
   return (
     <div className="basement-container">
-      <h2>{basement.name}</h2>
-      <p>Current Value: ${basement.value.toLocaleString()}</p>
-      <button onClick={() => setBasement({ ...basement, value: basement.value + 5 })}>
-        Increase by $5
-      </button>
-      <button onClick={() => setBasement({ ...basement, value: basement.value - 5 })}>
-        Decrease by $5
-      </button>
+      <h2>User: {user.username}</h2>
+      <p>Email: {user.email}</p>
+      <h3>Rooms:</h3>
+      <ul>
+        {rooms.map(room => (
+          <li key={room.id}>
+            <p>Room ID: {room.id}</p>
+            <p>Length: {room.length}</p>
+            <p>Width: {room.width}</p>
+            <p>Height: {room.height}</p>
+            <p>Savings: ${room.savings.toLocaleString()}</p>
+          </li>
+        ))}
+      </ul>
+      <h3>Total Basement Volume: {totalVolume.toLocaleString()} cubic units</h3>
     </div>
   );
 }
 
 export default Basement;
-
