@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import { GET_BASEMENTS } from '../../utils/queries';
+import { GET_ROOMS } from '../../utils/queries';
 import './css/MyBasements.css';
 
 function MyBasements() {
-  const { loading, error, data } = useQuery(GET_BASEMENTS);
+  const { loading, error, data } = useQuery(GET_ROOMS);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { CREATE_USER } from '../../utils/mutations';
+import { ADD_User } from '../../utils/mutations';
 import './css/UserForm.css';
 
 function UserForm() {
@@ -9,7 +9,7 @@ function UserForm() {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
 
-  const [createUser, { loading, error }] = useMutation(CREATE_USER, {
+  const [createUser, { loading, error }] = useMutation(ADD_User, {
     onCompleted: () => {
       setMessage('User created successfully!');
       setName('');
