@@ -1,35 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
+import { useQuery, gql } from '@apollo/client';
 import './css/Basement.css';
 
-
-
+const GET_BASEMENT = gql`
+  query GetBasement($id: ID!) {
+    basement(id: $id) {
+      name
+      value
+    }
+  }
+`;
 
 function Basement() {
   const { id } = useParams();
-  const [basement, setBasement] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    // Fetch basement data based on the ID
-    const fetchBasement = async () => {
-      try {
-        const response = await fetch(`/api/basement/${id}`); //just here until the actual route is figured out
-        const data = await response.json();
-        setBasement(data);
-        setLoading(false);
-      } catch (err) {
-        setError(err.message);
-        setLoading(false);
-      }
-    };
-
-    fetchBasement();
-  }, [id]);
+  const { loading, error, data } = useQuery(GET_BASEMENT, {
+    variables: { id },
+  });
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  const { basement } = data;
 
   return (
     <div className="basement-container">
@@ -46,4 +38,5 @@ function Basement() {
 }
 
 export default Basement;
+
 
