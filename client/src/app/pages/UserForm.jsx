@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { CREATE_USER } from './mutations';
+import { CREATE_USER } from '../../utils/mutations';
 import './css/UserForm.css';
 
 function UserForm() {
