@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Room = require('../models/basement');
-require('dotenv').config();
+// require('dotenv').config();
 
 const resolvers = {
   // Queries
