@@ -1,42 +1,41 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
+import { GET_ROOMS, GET_USER } from './queries';
 import './css/Basement.css';
 
-const GET_BASEMENT = gql`
-  query GetBasement($id: ID!) {
-    basement(id: $id) {
-      name
-      value
-    }
-  }
-`;
-
 function Basement() {
-  const { id } = useParams();
-  const { loading, error, data } = useQuery(GET_BASEMENT, {
-    variables: { id },
-  });
+  const { loading: loadingRooms, error: errorRooms, data: dataRooms } = useQuery(GET_ROOMS);
+  const { loading: loadingUser, error: errorUser, data: dataUser } = useQuery(GET_USER);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (loadingRooms || loadingUser) return <p>Loading...</p>;
+  if (errorRooms) return <p>Error loading rooms: {errorRooms.message}</p>;
+  if (errorUser) return <p>Error loading user: {errorUser.message}</p>;
 
-  const { basement } = data;
+  const { getRooms: rooms } = dataRooms;
+  const { getUser: user } = dataUser;
+
+  // Calculate total volume
+  const totalVolume = rooms.reduce((acc, room) => acc + (room.length * room.width * room.height), 0);
 
   return (
     <div className="basement-container">
-      <h2>{basement.name}</h2>
-      <p>Current Value: ${basement.value.toLocaleString()}</p>
-      <button onClick={() => setBasement({ ...basement, value: basement.value + 5 })}>
-        Increase by $5
-      </button>
-      <button onClick={() => setBasement({ ...basement, value: basement.value - 5 })}>
-        Decrease by $5
-      </button>
+      <h2>User: {user.username}</h2>
+      <p>Email: {user.email}</p>
+      <h3>Rooms:</h3>
+      <ul>
+        {rooms.map(room => (
+          <li key={room.id}>
+            <p>Room ID: {room.id}</p>
+            <p>Length: {room.length}</p>
+            <p>Width: {room.width}</p>
+            <p>Height: {room.height}</p>
+            <p>Savings: ${room.savings.toLocaleString()}</p>
+          </li>
+        ))}
+      </ul>
+      <h3>Total Basement Volume: {totalVolume.toLocaleString()} cubic units</h3>
     </div>
   );
 }
 
 export default Basement;
-
-
