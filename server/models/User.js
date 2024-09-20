@@ -18,8 +18,8 @@ const UserSchema = new mongoose.Schema({
     required: true,
   },
   room: {
-      type: Schema.Types.ObjectId,
-      ref: 'Room',
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'room',
     },
 });
 
