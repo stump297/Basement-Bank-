@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import { GET_BASEMENTS } from './queries';
+import { GET_BASEMENTS } from '../../utils/queries';
 import './css/MyBasements.css';
 
 function MyBasements() {

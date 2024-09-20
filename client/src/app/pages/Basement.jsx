@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
-import { GET_ROOMS, GET_USER } from './queries';
+import { GET_ROOMS, GET_USER } from '../../utils/queries';
 import './css/Basement.css';
 
 function Basement() {
