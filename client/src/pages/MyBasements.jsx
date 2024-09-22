@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import { GET_ROOMS } from '../../utils/queries';
+import { GET_ROOMS } from '../utils/queries';
 import './css/MyBasements.css';
 
 function MyBasements() {
@@ -15,13 +15,19 @@ function MyBasements() {
   return (
     <div className="my-basements">
       <h1>My Basements</h1>
-      <ol>
-        {basements.map((basement) => (
-          <li key={basement.id}>
-            {basement.name} <Link to={`/view-basement/${basement.id}`}><button>View</button></Link>
-          </li>
-        ))}
-      </ol>
+      {basements?.length > 1 ? (
+          <ol>
+          {basements?.map((basement) => (
+            <li key={basement.id}>
+              {basement.name} <Link to={`/view-basement/${basement.id}`}><button>View</button></Link>
+            </li>
+          ))}
+        </ol>
+        ):(
+          <h3>no basement</h3>
+        )
+      }
+
       <Link to="/create"><button>Add New Basement</button></Link>
     </div>
   );
