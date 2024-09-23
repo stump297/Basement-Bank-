@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
+import { gql, useMutation } from '@apollo/client';
+import {LOGIN}  from '../utils/mutations';
+
 import './css/Login.css';
 
 Modal.setAppElement('#root'); // Make sure to set the app element for accessibility
+
+
 
 function Login() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [login, { data, loading, error }] = useMutation(LOGIN);
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -18,11 +24,14 @@ function Login() {
     setModalIsOpen(false);
   };
 
-  const handleLogin = () => {
-    // Handle login logic here
-    console.log('Username:', username);
-    console.log('Password:', password);
-    closeModal();
+  const handleLogin = async () => {
+    try {
+      const { data } = await login({ variables: { email: username, password } });
+      console.log('Login successful:', data);
+      closeModal();
+    } catch (err) {
+      console.error('Login error:', err);
+    }
   };
 
   return (
@@ -42,7 +51,7 @@ function Login() {
         <h2>Login</h2>
         <form>
           <label>
-            Email:
+            Username:
             <input
               type="text"
               value={username}
@@ -57,7 +66,10 @@ function Login() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </label>
-          <button type="button" onClick={handleLogin}>Login</button>
+          <button type="button" onClick={handleLogin} disabled={loading}>
+            {loading ? 'Logging in...' : 'Login'}
+          </button>
+          {error && <p className="error">Login failed. Please try again.</p>}
         </form>
         <button onClick={closeModal}>Close</button>
       </Modal>
