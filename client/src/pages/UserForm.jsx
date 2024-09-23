@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { ADD_User } from '../utils/mutations';
+import './css/UserForm.css';
 
 function UserForm() {
   const [name, setName] = useState('');
@@ -6,21 +9,25 @@ function UserForm() {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
 
+  const [createUser, { loading, error }] = useMutation(ADD_User, {
+    onCompleted: () => {
+      setMessage('User created successfully!');
+      setName('');
+      setEmail('');
+      setPassword('');
+    },
+    onError: (err) => {
+      setMessage(`Error: ${err.message}`);
+    },
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Basic validation
     if (!name || !email || !password) {
       setMessage('All fields are required');
       return;
     }
-    //TODO: Replace this and send data to server side
-    console.log({ name, email, password });
-    setMessage('User created successfully!');
-
-    // Clear the form
-    setName(''); 
-    setEmail('');
-    setPassword('');
+    createUser({ variables: { username:name, email, password } });
   };
 
   return (
@@ -55,8 +62,9 @@ function UserForm() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit">Create User</button>
+        <button type="submit" disabled={loading}>Create User</button>
       </form>
+      {error && <p className="error">Error: {error.message}</p>}
     </div>
   );
 }

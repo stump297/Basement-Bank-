@@ -1,4 +1,4 @@
-const typeDefs = gql`
+const typeDefs = `
   # User Type
   type User {
     id: ID!
@@ -18,8 +18,8 @@ const typeDefs = gql`
 
   # Auth Payload for returning token and user on login/register
   type AuthPayload {
-    token: String!
-    user: User!
+    token: ID!
+    user: User
   }
 
   # Queries
@@ -30,11 +30,11 @@ const typeDefs = gql`
 
   # Mutations
   type Mutation {
-    register(username: String!, email: String!, password: String!): AuthPayload!
-    login(email: String!, password: String!): AuthPayload!
-    addRoom(length: Float!, width: Float!, height: Float!, savings: Float!): Room!
-    updateRoom(id: ID!, length: Float, width: Float,height: Float!, savings: Float): Room!
-    deleteRoom(id: ID!): Boolean!
+    register(username: String!, email: String!, password: String!): AuthPayload
+    login(email: String!, password: String!): AuthPayload
+    addRoom(length: Float!, width: Float!, height: Float!, savings: Float!): Room
+    updateRoom(id: ID!, length: Float, width: Float,height: Float!, savings: Float): Room
+    deleteRoom(id: ID!): Boolean
   }
 `;
 
