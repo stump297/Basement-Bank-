@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import {  useMutation } from '@apollo/client';
-import { ADD_User } from '../../utils/mutations';
+import { useMutation } from '@apollo/client';
+import { ADD_User } from '../utils/mutations';
 import './css/UserForm.css';
 
 function UserForm() {
@@ -27,8 +27,7 @@ function UserForm() {
       setMessage('All fields are required');
       return;
     }
-    console.log('Creating user with:', { name, email, password });
-    createUser({ variables: { name, email, password } });
+    createUser({ variables: { username:name, email, password } });
   };
 
   return (
@@ -71,3 +70,4 @@ function UserForm() {
 }
 
 export default UserForm;
+
