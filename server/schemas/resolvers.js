@@ -5,7 +5,6 @@ const Room = require('../models/Room');
 require('dotenv').config();
 
 const resolvers = {
-  // Queries
   Query: {
     getUser: async (_, __, { user }) => {
       if (!user) throw new Error('You are not authenticated!');
@@ -18,7 +17,6 @@ const resolvers = {
     },
   },
 
-  // Mutations
   Mutation: {
     register: async (_, { username, email, password }) => {
       const existingUser = await User.findOne({ email });
