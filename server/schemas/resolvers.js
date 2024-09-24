@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Room = require('../models/Room');
+const { signToken } = require('../utils/auth');
 require('dotenv').config();
 
 const resolvers = {
@@ -47,7 +48,7 @@ const resolvers = {
       
       if (!isMatch) throw new Error('Invalid credentials');
 
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+      const token = signToken(user);
 
       return {
         token,
