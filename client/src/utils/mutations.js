@@ -4,7 +4,7 @@ import { gql } from "@apollo/client";
 export const ADD_ROOM = gql`
   mutation AddRoom(
     $volume: Float!
-    $description: Float!
+    $description: String!
     $savings: Float!
   ) {
     addRoom(
@@ -25,7 +25,7 @@ export const UPDATE_ROOM = gql`
   mutation UpdateRoom(
     $id: ID!
     $volume: Float
-    $description: Float
+    $description: String
     $savings: Float
   ) {
     updateRoom(
