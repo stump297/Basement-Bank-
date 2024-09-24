@@ -7,18 +7,21 @@ const CreateBasement = () => {
   const [length, setLength] = useState('');
   const [width, setWidth] = useState('');
   const [height, setHeight] = useState('');
+  const [description, setDescription] = useState('');
+  const [savings, setSavings] = useState('');
 
   const [addRoom] = useMutation(ADD_ROOM);
   const [updateRoom] = useMutation(UPDATE_ROOM);
 
   const handleCreate = async () => {
     try {
+      const volume = length * width * height;
+      console.log(volume);
       const { data } = await addRoom({
         variables: {
-          length: parseFloat(length),
-          width: parseFloat(width),
-          height: parseFloat(height),
-          savings: 0 // Assuming savings is a fixed value for now
+          volume: parseFloat(volume),
+          description: parseFloat(description),
+          savings: parseFloat(savings),
         }
       });
       console.log('Room added:', data.addRoom);
@@ -55,6 +58,24 @@ const CreateBasement = () => {
           id="height"
           value={height}
           onChange={(e) => setHeight(e.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="description">Description:</label>
+        <input
+          type="string"
+          id="description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="savings">Initial Savings:</label>
+        <input
+          type="number"
+          id="savings"
+          value={savings}
+          onChange={(e) => setSavings(e.target.value)}
         />
       </div>
       <button className="create-button" onClick={handleCreate}>Create Basement</button>
