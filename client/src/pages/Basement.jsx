@@ -1,6 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_ROOMS, GET_USER } from '../utils/queries';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import './css/Basement.css';
 
 function Basement() {
@@ -14,10 +15,28 @@ function Basement() {
   const { getRooms: rooms } = dataRooms;
   const { getUser: user } = dataUser;
 
+  // Define the volume of a gold coin (in cubic inches)
+  const goldCoinVolume = 0.02; // volume in cubic inches
+
+  // Calculate how many coins the savings can buy and how many coins it would take to fill the room's volume
+  const roomsWithCoinData = rooms.map(room => {
+    const coinsToFillRoom = room.volume / goldCoinVolume; 
+    const coinsFromSavings = room.savings / goldCoinVolume;
+    return {
+      id: room.id,
+      volume: room.volume,
+      coinsToFillRoom: Math.floor(coinsToFillRoom), 
+      coinsFromSavings: Math.floor(coinsFromSavings),
+    };
+  });
+
+  const maxCoins = Math.max(...roomsWithCoinData.map(room => room.coinsToFillRoom));
+
   return (
     <div className="basement-container">
       <h2>User: {user.username}</h2>
       <p>Email: {user.email}</p>
+
       <h3>Rooms:</h3>
       <ul>
         {rooms.map(room => (
@@ -28,9 +47,21 @@ function Basement() {
           </li>
         ))}
       </ul>
+
+      <h3>Coins to Fill Room vs Coins Needed with Savings</h3>
+      <ResponsiveContainer width="100%" height={400}>
+        <BarChart data={roomsWithCoinData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="id" label={{ value: 'Room ID', position: 'insideBottom', offset: -5 }} />
+          <YAxis domain={[0, maxCoins]} label={{ value: 'Number of Coins', angle: -90, position: 'insideLeft' }} />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="coinsToFillRoom" fill="#8884d8" name="Coins to Fill Room" />
+          <Bar dataKey="coinsFromSavings" fill="#82ca9d" name="Coins Needed with Savings" />
+        </BarChart>
+      </ResponsiveContainer>
     </div>
   );
 }
 
 export default Basement;
-
