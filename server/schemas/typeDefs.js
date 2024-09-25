@@ -9,9 +9,8 @@ const typeDefs = `
   # Room Type
   type Room {
     id: ID!
-    length: Float!
-    width: Float!
-    height: Float!
+    volume: Float!
+    description: String!
     savings: Float!
     user: User!
   }
@@ -32,7 +31,7 @@ const typeDefs = `
   type Mutation {
     register(username: String!, email: String!, password: String!): AuthPayload
     login(email: String!, password: String!): AuthPayload
-    addRoom(length: Float!, width: Float!, height: Float!, savings: Float!): Room
+    addRoom(volume: Float!, description: String!, savings: Float!): Room
     updateRoom(id: ID!, length: Float, width: Float,height: Float!, savings: Float): Room
     deleteRoom(id: ID!): Boolean
   }
