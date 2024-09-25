@@ -26,12 +26,15 @@ function Login(props) {
   const handleLogin = async () => {
     try {
       const { data } = await login({ variables: { email: username, password } });
+
+
       console.log('Login successful:', data);
       Auth.login(data.login.token);
+
       closeModal();
       navigate('/Mybasements');
     } catch (err) {
-      console.error('Login error:', err);
+      console.error('Login error:', err); // Check for errors here
     }
   };
 
@@ -52,7 +55,7 @@ function Login(props) {
         <h2>Login</h2>
         <form>
           <label>
-            Email:
+            Username:
             <input
               type="text"
               value={username}
