@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { ADD_ROOM, UPDATE_ROOM } from '../utils/mutations';
+import { GET_USER } from '../utils/queries';
 import './css/CreateBasement.css';
 
 const CreateBasement = () => {
@@ -12,23 +13,39 @@ const CreateBasement = () => {
 
   const [addRoom] = useMutation(ADD_ROOM);
   const [updateRoom] = useMutation(UPDATE_ROOM);
+  const {data2} = useQuery(GET_USER);
 
   const handleCreate = async () => {
     try {
+      const user = data2?.getUser;
+
+
       const volume = length * width * height;
       console.log(volume);
       const { data } = await addRoom({
         variables: {
+          user,
           volume: parseFloat(volume),
-          description: parseFloat(description),
+          description: description,
           savings: parseFloat(savings),
         }
       });
+     
       console.log('Room added:', data.addRoom);
+
+      setHeight('')
+      setLength('')
+      setWidth('')
+      setSavings('')
+      setDescription('')
     } catch (error) {
+
       console.error('Error adding room:', error);
     }
   };
+
+
+ 
 
   return (
     <div className="create-basement">
