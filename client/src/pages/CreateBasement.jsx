@@ -44,7 +44,14 @@ const CreateBasement = () => {
     }
   };
 
+const handlereturn = () => {
+  try {
+    window.location.assign('/my-basements');
+  }catch (error) {
 
+      console.error('Error in moving:', error);
+    }
+}
  
 
   return (
@@ -96,6 +103,8 @@ const CreateBasement = () => {
         />
       </div>
       <button className="create-button" onClick={handleCreate}>Create Basement</button>
+      <br></br>
+      <button className="return-button" onClick={handlereturn}>return</button>
     </div>
   );
 };
