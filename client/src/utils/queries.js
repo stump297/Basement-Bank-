@@ -5,9 +5,8 @@ export const GET_ROOMS = gql`
   query GetRooms {
     getRooms {
       id
-      length
-      width
-      height
+      volume
+      description
       savings
     }
   }

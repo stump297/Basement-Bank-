@@ -56,15 +56,14 @@ const resolvers = {
       };
     },
 
-    addRoom: async (_, { length, width, height, savings }, { user }) => {
+    addRoom: async (_, { volume, description, savings }, { user }) => {
       if (!user) throw new Error('You are not authenticated!');
 
       const newRoom = new Room({
-        length,
-        width,
-        height,
+        volume,
+        description,
         savings,
-        user: user.id,
+        user,
       });
 
       return await newRoom.save();
