@@ -9,7 +9,7 @@ const resolvers = {
   Query: {
     getUser: async (_, __, { user }) => {
       if (!user) throw new Error('You are not authenticated!');
-      return await User.findById(user.id);
+      return await User.findOne(user.id);
     },
 
     getRooms: async (_, __, { user }) => {
