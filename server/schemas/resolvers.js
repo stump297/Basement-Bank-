@@ -11,7 +11,6 @@ const resolvers = {
       if (!user) throw new Error('You are not authenticated!');
       return await User.findById(user.id);
     },
-
     getRooms: async (_, __, { user }) => {
       if (!user) throw new Error('You are not authenticated!');
       return await Room.find({ user: user.id });
