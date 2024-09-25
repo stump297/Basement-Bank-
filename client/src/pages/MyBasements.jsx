@@ -4,12 +4,19 @@ import { useQuery } from '@apollo/client';
 import { GET_ROOMS, GET_USER } from '../utils/queries';
 import './css/MyBasements.css';
 
-function MyBasements() {
+function MyBasements() {  
   const { loading, error, data } = useQuery(GET_ROOMS);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
+  const handlelogout = () => {
+    try {
+      window.location.assign('/');
+    }catch (error) {  
+        console.error('Error in moving:', error);
+      }
+  }
 console.log(data.getRooms.length)
   return (
     <div className="my-basements">
@@ -19,7 +26,7 @@ console.log(data.getRooms.length)
           
           {data.getRooms?.map((basement) => (
             <li key={basement.id}>
-              <Link to={`/view-basement/${basement.id}`}><button>View</button></Link>
+              <Link to={`/Basement`}><button>View</button></Link>
             </li>
           ))}
         </ol>
@@ -29,6 +36,9 @@ console.log(data.getRooms.length)
       }
 
       <Link to="/create"><button>Add New Basement</button></Link>
+      <br></br>
+      <button className="logout-button" onClick={handlelogout}>logout</button>
+
     </div>
   );
 }
