@@ -5,11 +5,11 @@ import './css/Basement.css';
 
 function Basement() {
   const { loading: loadingRooms, error: errorRooms, data: dataRooms } = useQuery(GET_ROOMS);
-  const { loading: loadingUser, error: errorUser, data: dataUser } = useQuery(GET_USER);
+  // const { loading: loadingUser, error: errorUser, data: dataUser } = useQuery(GET_USER);
 
-  if (loadingRooms || loadingUser) return <p>Loading...</p>;
-  if (errorRooms) return <p>Error loading rooms: {errorRooms.message}</p>;
-  if (errorUser) return <p>Error loading user: {errorUser.message}</p>;
+  // if (loadingRooms || loadingUser) return <p>Loading...</p>;
+  // if (errorRooms) return <p>Error loading rooms: {errorRooms.message}</p>;
+  // if (errorUser) return <p>Error loading user: {errorUser.message}</p>;
 
   const { getRooms: rooms } = dataRooms;
   const { getUser: user } = dataUser;
