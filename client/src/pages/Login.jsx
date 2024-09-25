@@ -6,14 +6,14 @@ import { LOGIN } from '../utils/mutations';
 import Auth from '../utils/auth';
 import './css/Login.css';
 
-Modal.setAppElement('#root'); // Make sure to set the app element for accessibility
+Modal.setAppElement('#root'); 
 
 function Login(props) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [login, { data, loading, error }] = useMutation(LOGIN);
-  const navigate = useNavigate(); // Initialize the useNavigate hook
+  const navigate = useNavigate(); 
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -27,9 +27,9 @@ function Login(props) {
     try {
       const { data } = await login({ variables: { email: username, password } });
       console.log('Login successful:', data);
-      Auth.login(data.login.token); // Store the token and redirect
+      Auth.login(data.login.token);
       closeModal();
-      navigate('/Mybasements'); // Redirect to Mybasements page
+      navigate('/Mybasements');
     } catch (err) {
       console.error('Login error:', err);
     }
