@@ -1,33 +1,27 @@
 import { gql } from "@apollo/client";
 
+// Mutation to add a new room
 export const ADD_ROOM = gql`
-  mutation AddRoom(
-    $volume: Float!
-    $description: String!
-    $savings: Float!
-  ) {
-    addRoom(
-      volume: $volume
-      description: $description
-      savings: $savings
-    ) {
+  mutation AddRoom($volume: Float!, $description: String!, $savings: Float!) {
+    addRoom(volume: $volume, description: $description, savings: $savings) {
       id
       volume
       description
       savings
     }
   }
-`;  
+`;
 
+// Mutation to update a room
 export const UPDATE_ROOM = gql`
-  mutation UpdateRoom(
+  mutation Mutation(
     $id: ID!
     $volume: Float
     $description: String
     $savings: Float
   ) {
     updateRoom(
-      id: $id
+      _id: $id
       volume: $volume
       description: $description
       savings: $savings
@@ -36,7 +30,7 @@ export const UPDATE_ROOM = gql`
       volume
       description
       savings
-    }
+      }
   }
 `;
 

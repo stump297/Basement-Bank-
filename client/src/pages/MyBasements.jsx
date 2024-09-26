@@ -6,6 +6,7 @@ import './css/MyBasements.css';
 
 function MyBasements() {  
   const { loading, error, data } = useQuery(GET_ROOMS);
+  localStorage.setItem("Basement_id", '');
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -13,6 +14,15 @@ function MyBasements() {
   const handlelogout = () => {
     try {
       window.location.assign('/');
+    }catch (error) {  
+        console.error('Error in moving:', error);
+      }
+  }
+  const handleview = (e) => {
+    try {
+      console.log(e.currentTarget.id);
+      localStorage.setItem("Basement_id", e.currentTarget.id);
+      window.location.assign('/Basement');
     }catch (error) {  
         console.error('Error in moving:', error);
       }
@@ -26,7 +36,8 @@ console.log(data.getRooms.length)
           
           {data.getRooms?.map((basement) => (
             <li key={basement.id}>
-              <Link to={`/Basement`}><button>View</button></Link>
+              {basement.id}
+              <button onClick={handleview} id={basement.id} >View</button>
             </li>
           ))}
         </ol>
