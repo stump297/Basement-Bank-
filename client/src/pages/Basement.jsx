@@ -1,19 +1,23 @@
-import React from 'react';
-import { useQuery } from '@apollo/client';
+import React, { useState } from "react";
+import { useMutation, useQuery } from '@apollo/client';
 import { GET_ROOMS, GET_USER } from '../utils/queries';
+import { UPDATE_ROOM } from '../utils/mutations';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import './css/Basement.css';
 
 function Basement() {
+  const room_id = localStorage.getItem("Basement_id")
+  const [savings, setSavings] = useState('');
+  const [updateRoom] = useMutation(UPDATE_ROOM);
   const { loading: loadingRooms, error: errorRooms, data: dataRooms } = useQuery(GET_ROOMS);
   const { loading: loadingUser, error: errorUser, data: dataUser } = useQuery(GET_USER);
 
   if (loadingRooms || loadingUser) return <p>Loading...</p>;
   if (errorRooms) return <p>Error loading rooms: {errorRooms.message}</p>;
-  if (errorUser) return <p>Error loading user: {errorUser.message}</p>;
+  // if (errorUser) return <p>Error loading user: {errorUser.message}</p>;
 
   const { getRooms: rooms } = dataRooms;
-  const { getUser: user } = dataUser;
+  // const { getUser: user } = dataUser;
 
   // Define the volume of a gold coin (in cubic inches)
   const goldCoinVolume = 0.02; // volume in cubic inches
@@ -29,13 +33,40 @@ function Basement() {
       coinsFromSavings: Math.floor(coinsFromSavings),
     };
   });
+  const handleReturn = () => {
+    try {
+      window.location.assign('/my-basements');
+    } catch (error) {
+      console.error('Error in moving:', error);
+    }
+  };
+
+  const handleUpdate = async () => {
+    try {
+      console.log(savings);
+      console.log(roomsWithCoinData.volume);
+
+      const { data } = await updateRoom({
+        variables: {
+          id: room_id,
+          // volume: parseFloat(roomsWithCoinData.volume),
+          // description: roomsWithCoinData.description,
+          savings: parseFloat(savings),
+        },
+      });
+      
+      console.log('Room updated:', data.updateRoom);
+    } catch (error) {
+      console.error('Error in moving:', error);
+    }
+  };
 
   const maxCoins = Math.max(...roomsWithCoinData.map(room => room.coinsToFillRoom));
 
   return (
     <div className="basement-container">
-      <h2>User: {user.username}</h2>
-      <p>Email: {user.email}</p>
+      {/* <h2>User: {user.username}</h2>
+      <p>Email: {user.email}</p> */}
 
       <h3>Rooms:</h3>
       <ul>
@@ -44,6 +75,14 @@ function Basement() {
             <p>Room ID: {room.id}</p>
             <p>Volume: {room.volume}</p>
             <p>Savings: ${room.savings.toLocaleString()}</p>
+            <label htmlFor="savings">Current Savings:</label>
+        <input
+          type="number"
+          id="savings"
+          value={savings}
+          onChange={(e) => setSavings(e.target.value)}
+        />
+        <button className="create-button" onClick={handleUpdate}>Create Basement</button>
           </li>
         ))}
       </ul>
@@ -60,6 +99,7 @@ function Basement() {
           <Bar dataKey="coinsFromSavings" fill="#82ca9d" name="Coins Needed with Savings" />
         </BarChart>
       </ResponsiveContainer>
+      <button className="return-button" onClick={handleReturn}>Return</button>
     </div>
   );
 }

@@ -24,19 +24,13 @@ export const ADD_ROOM = gql`
 export const UPDATE_ROOM = gql`
   mutation UpdateRoom(
     $id: ID!
-    $volume: Float
-    $description: String
     $savings: Float
   ) {
     updateRoom(
       id: $id
-      volume: $volume
-      description: $description
       savings: $savings
     ) {
       id
-      volume
-      description
       savings
     }
   }
