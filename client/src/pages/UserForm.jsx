@@ -30,6 +30,14 @@ function UserForm() {
     createUser({ variables: { username:name, email, password } });
   };
 
+  const handlereturn = () => {
+    try {
+      window.location.assign('/');
+    }catch (error) {  
+        console.error('Error in moving:', error);
+      }
+  }
+
   return (
     <div className="user-form-container">
       <h2>Create a New User</h2>
@@ -63,6 +71,8 @@ function UserForm() {
           />
         </div>
         <button type="submit" disabled={loading}>Create User</button>
+        <br></br><br></br>
+      <button className="logout-button" onClick={handlereturn}>return</button>
       </form>
       {error && <p className="error">Error: {error.message}</p>}
     </div>
