@@ -42,13 +42,11 @@ function Basement() {
   const handleUpdate = async () => {
     try {
       console.log(savings);
-      console.log(roomsWithCoinData.volume);
+      console.log(room_id);
 
       const { data } = await updateRoom({
         variables: {
           id: room_id,
-          // volume: parseFloat(roomsWithCoinData.volume),
-          // description: roomsWithCoinData.description,
           savings: parseFloat(savings),
         },
       });

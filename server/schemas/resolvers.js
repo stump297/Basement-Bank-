@@ -66,22 +66,16 @@ const resolvers = {
       return await newRoom.save();
     },
 
-    updateRoom: async (_, { id, length, width, height, savings }, { user }) => {
-      if (!user) throw new Error('You are not authenticated!');
+    updateRoom: async (_, { id, savings }) => {
+     console.log(id);
+      const room = await Room.findByIdAndUpdate(
+        {_id:id},
+        {savings},
+        {new:true}      
+      );
 
-      const room = await Room.findById(id);
-      if (!room) throw new Error('Room not found');
 
-      if (room.user.toString() !== user.id) {
-        throw new Error('You do not have permission to update this room');
-      }
-
-      room.length = length || room.length;
-      room.width = width || room.width;
-      room.height = width || room.height;
-      room.savings = savings || room.savings;
-
-      return await room.save();
+      return room;
     },
 
     deleteRoom: async (_, { id }, { user }) => {

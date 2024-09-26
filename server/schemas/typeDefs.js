@@ -32,7 +32,7 @@ const typeDefs = `
     register(username: String!, email: String!, password: String!): AuthPayload
     login(email: String!, password: String!): AuthPayload
     addRoom(volume: Float!, description: String!, savings: Float!): Room
-    updateRoom(id: ID!, length: Float, width: Float,height: Float!, savings: Float): Room
+    updateRoom(id: ID!, volume: Float, description: String, savings: Float): Room
     deleteRoom(id: ID!): Boolean
   }
 `;

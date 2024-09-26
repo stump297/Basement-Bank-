@@ -55,7 +55,7 @@ function Login(props) {
         <h2>Login</h2>
         <form>
           <label>
-            Username:
+            Email:
             <input
               type="text"
               value={username}
