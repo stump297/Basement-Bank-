@@ -19,7 +19,8 @@ const App = () => {
  
     return (
         <BarChart width={600} height={600} data={data}>
-            <Bar dataKey="students" fill="green" />
+            <Bar dataKey="volume" fill="grey" />
+            <Bar dataKey="savings" fill="green" />
             <CartesianGrid stroke="#ccc" />
             <XAxis dataKey="name" />
             <YAxis />
