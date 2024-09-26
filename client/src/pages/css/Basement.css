@@ -1,31 +1,62 @@
-.basement {
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0; /* light grey background for the whole page */
+}
+
+.create-basement {
   background-color: #fffacd; /* LemonChiffon */
-  width: 60%; /* Take up more of the page */
+  width: 70%; /* Take up more of the page */
+  max-width: 800px; /* Ensure it doesn't get too wide */
   padding: 40px;
   border-radius: 10px;
-  margin: 50px auto; /* Center the container */
   text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for better visibility */
 }
 
-.basement h1 {
-  color: #daa520; /* GoldenRod */
+.create-basement h1 {
+  color: #0d2b70ba; 
 }
 
-.basement div {
+.create-basement div {
   margin-bottom: 20px;
   font-size: large;
 }
 
-.basement button {
-  width: 40%; /* Adjust width to fit the larger container */
-  background-color: #add8e6; /* light blue */
-  border: none;
+select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
   border-radius: 5px;
-  padding: 15px;
-  margin: 10px;
-  cursor: pointer;
+  border: 1px solid #ccc;
+  font-size: large;
 }
 
-.basement button:hover {
-  background-color: #87ceeb; /* sky blue */
+.create-button {
+  background-color:#0d2b70ba; 
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 5px;
+  font-size: large;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.return-button{
+  background-color:#0d2b70ba; 
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 5px;
+  font-size: large;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.create-button:hover {
+  background-color: #42c131; 
 }
