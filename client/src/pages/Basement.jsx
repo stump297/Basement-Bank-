@@ -15,10 +15,8 @@ function Basement() {
   const { getRooms: rooms } = dataRooms;
   const { getUser: user } = dataUser;
 
-  // Define the volume of a gold coin (in cubic inches)
-  const goldCoinVolume = 0.02; // volume in cubic inches
+  const goldCoinVolume = 0.02;
 
-  // Calculate how many coins the savings can buy and how many coins it would take to fill the room's volume
   const roomsWithCoinData = rooms.map(room => {
     const coinsToFillRoom = room.volume / goldCoinVolume; 
     const coinsFromSavings = room.savings / goldCoinVolume;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMutation, useQuery } from '@apollo/client';
-import { ADD_ROOM } from '../utils/mutations'; // Assuming ADD_ROOM is for creating a new room
-import { GET_USER } from '../utils/queries'; // Assuming this fetches user data
+import { ADD_ROOM } from '../utils/mutations';
+import { GET_USER } from '../utils/queries';
 import './css/CreateBasement.css';
 
 const CreateBasement = () => {
@@ -19,7 +19,7 @@ const CreateBasement = () => {
 
   const handleCreate = async () => {
     try {
-      const user = dataUser?.getUser; // Get the user from the query response
+      const user = dataUser?.getUser;
 
       if (!user) {
         throw new Error("User not found. Please log in.");
@@ -29,16 +29,15 @@ const CreateBasement = () => {
 
       const { data } = await addRoom({
         variables: {
-          user, // Pass the user object to the mutation
-          volume: volume, // Calculated volume based on the dimensions input
-          description: description, // Room description
-          savings: parseFloat(savings), // User-inputted savings
+          user,
+          volume: volume,
+          description: description,
+          savings: parseFloat(savings),
         }
       });
 
       console.log('Room added:', data.addRoom);
 
-      // Reset form fields after successful room creation
       setHeight('');
       setLength('');
       setWidth('');
@@ -51,7 +50,7 @@ const CreateBasement = () => {
 
   const handleReturn = () => {
     try {
-      window.location.assign('/my-basements'); // Redirect to the user's basements page
+      window.location.assign('/my-basements');
     } catch (error) {
       console.error('Error in moving:', error);
     }

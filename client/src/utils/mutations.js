@@ -1,6 +1,5 @@
 import { gql } from "@apollo/client";
 
-// Mutation to add a new room
 export const ADD_ROOM = gql`
   mutation AddRoom(
     $volume: Float!
@@ -20,7 +19,6 @@ export const ADD_ROOM = gql`
   }
 `;  
 
-// Mutation to update a room
 export const UPDATE_ROOM = gql`
   mutation UpdateRoom(
     $id: ID!

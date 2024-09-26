@@ -34,7 +34,7 @@ function Login(props) {
       closeModal();
       navigate('/Mybasements');
     } catch (err) {
-      console.error('Login error:', err); // Check for errors here
+      console.error('Login error:', err);
     }
   };
 
