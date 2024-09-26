@@ -78,7 +78,7 @@ function Basement() {
           value={savings}
           onChange={(e) => setSavings(e.target.value)}
         />
-        <button className="create-button" onClick={handleUpdate}>Create Basement</button>
+        <button className="create-button" onClick={handleUpdate}>Add Money!</button>
           </li>
         ))}
       </ul>

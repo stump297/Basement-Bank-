@@ -1,18 +1,18 @@
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const User = require('../models/User');
-const Room = require('../models/Room');
-const { signToken } = require('../utils/auth');
-require('dotenv').config();
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const User = require("../models/User");
+const Room = require("../models/Room");
+const { signToken } = require("../utils/auth");
+require("dotenv").config();
 
 const resolvers = {
   Query: {
     getUser: async (_, __, { user }) => {
-      if (!user) throw new Error('You are not authenticated!');
+      if (!user) throw new Error("You are not authenticated!");
       return await User.findOne(user.id);
     },
     getRooms: async (_, __, { user }) => {
-      if (!user) throw new Error('You are not authenticated!');
+      if (!user) throw new Error("You are not authenticated!");
       return await Room.find({ user: user.id });
     },
   },
@@ -20,7 +20,7 @@ const resolvers = {
   Mutation: {
     register: async (_, { username, email, password }) => {
       const existingUser = await User.findOne({ email });
-      if (existingUser) throw new Error('User already exists');
+      if (existingUser) throw new Error("User already exists");
 
       const newUser = new User({
         username,
@@ -29,21 +29,23 @@ const resolvers = {
       });
 
       const savedUser = await newUser.save();
-      const token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-      
+      const token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET, {
+        expiresIn: "1h",
+      });
+
       return {
         token,
-        user: savedUser
+        user: savedUser,
       };
     },
 
     login: async (_, { email, password }) => {
       const user = await User.findOne({ email });
-      if (!user) throw new Error('User not found');
+      if (!user) throw new Error("User not found");
 
       const isMatch = await user.isCorrectPassword(password, user.password);
-      
-      if (!isMatch) throw new Error('Invalid credentials');
+
+      if (!isMatch) throw new Error("Invalid credentials");
 
       const token = signToken(user);
 
@@ -54,7 +56,7 @@ const resolvers = {
     },
 
     addRoom: async (_, { volume, description, savings }, { user }) => {
-      if (!user) throw new Error('You are not authenticated!');
+      if (!user) throw new Error("You are not authenticated!");
 
       const newRoom = new Room({
         volume,
@@ -66,26 +68,24 @@ const resolvers = {
       return await newRoom.save();
     },
 
-    updateRoom: async (_, { id, savings }) => {
-     console.log(id);
+    updateRoom: async (_, { _id, savings }) => {
       const room = await Room.findByIdAndUpdate(
-        {_id:id},
-        {savings},
-        {new:true}      
+        { _id },
+        { savings },
+        { new: true }
       );
-
 
       return room;
     },
 
     deleteRoom: async (_, { id }, { user }) => {
-      if (!user) throw new Error('You are not authenticated!');
+      if (!user) throw new Error("You are not authenticated!");
 
       const room = await Room.findById(id);
-      if (!room) throw new Error('Room not found');
+      if (!room) throw new Error("Room not found");
 
       if (room.user.toString() !== user.id) {
-        throw new Error('You do not have permission to delete this room');
+        throw new Error("You do not have permission to delete this room");
       }
 
       await room.remove();
