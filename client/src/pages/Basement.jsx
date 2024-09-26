@@ -1,32 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_ROOMS, GET_USER } from '../utils/queries';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import './css/Basement.css';
 
 function Basement() {
-  const { loading: loadingRooms, error: errorRooms, data: dataRooms } = useQuery(GET_ROOMS);
-  const { loading: loadingUser, error: errorUser, data: dataUser } = useQuery(GET_USER);
+  const { data: dataRooms } = useQuery(GET_ROOMS);
+  const { data: dataUser } = useQuery(GET_USER);
 
-  if (loadingRooms || loadingUser) return <p>Loading...</p>;
-  if (errorRooms) return <p>Error loading rooms: {errorRooms.message}</p>;
-  if (errorUser) return <p>Error loading user: {errorUser.message}</p>;
+  if (!dataRooms || !dataUser) return <p>Loading...</p>;
+  if (dataRooms.error) return <p>Error loading rooms: {dataRooms.error.message}</p>;
+  if (dataUser.error) return <p>Error loading user: {dataUser.error.message}</p>;
 
   const { getRooms: rooms } = dataRooms;
   const { getUser: user } = dataUser;
 
   const goldCoinVolume = 0.02;
 
-  const roomsWithCoinData = rooms.map(room => {
-    const coinsToFillRoom = room.volume / goldCoinVolume; 
+  const initialRoomsWithCoinData = rooms.map(room => {
+    const coinsToFillRoom = room.volume / goldCoinVolume;
     const coinsFromSavings = room.savings / goldCoinVolume;
+
     return {
       id: room.id,
       volume: room.volume,
-      coinsToFillRoom: Math.floor(coinsToFillRoom), 
+      savings: room.savings,
+      coinsToFillRoom: Math.floor(coinsToFillRoom),
       coinsFromSavings: Math.floor(coinsFromSavings),
     };
   });
+
+  const [roomsWithCoinData, setRoomsWithCoinData] = useState(initialRoomsWithCoinData);
+
+  const handleAddCoins = (roomId) => {
+    setRoomsWithCoinData(prevState =>
+      prevState.map(room =>
+        room.id === roomId
+          ? {
+              ...room,
+              coinsFromSavings: room.coinsFromSavings + 5,
+              savings: room.savings + 5 * goldCoinVolume,
+            }
+          : room
+      )
+    );
+  };
+
+  const handleSubtractCoins = (roomId) => {
+    setRoomsWithCoinData(prevState =>
+      prevState.map(room =>
+        room.id === roomId
+          ? {
+              ...room,
+              coinsFromSavings: room.coinsFromSavings - 5,
+              savings: room.savings - 5 * goldCoinVolume, 
+            }
+          : room
+      )
+    );
+  };
 
   const maxCoins = Math.max(...roomsWithCoinData.map(room => room.coinsToFillRoom));
 
@@ -37,11 +69,14 @@ function Basement() {
 
       <h3>Rooms:</h3>
       <ul>
-        {rooms.map(room => (
+        {roomsWithCoinData.map(room => (
           <li key={room.id}>
             <p>Room ID: {room.id}</p>
             <p>Volume: {room.volume}</p>
-            <p>Savings: ${room.savings.toLocaleString()}</p>
+            <p>Savings: ${room.savings.toFixed(2)}</p> 
+            <p>Coins from Savings: {room.coinsFromSavings}</p>
+            <button onClick={() => handleAddCoins(room.id)}>Add 5 Coins</button>
+            <button onClick={() => handleSubtractCoins(room.id)}>Subtract 5 Coins</button>
           </li>
         ))}
       </ul>
@@ -54,8 +89,8 @@ function Basement() {
           <YAxis domain={[0, maxCoins]} label={{ value: 'Number of Coins', angle: -90, position: 'insideLeft' }} />
           <Tooltip />
           <Legend />
-          <Bar dataKey="coinsToFillRoom" fill="#8884d8" name="Coins to Fill Room" />
-          <Bar dataKey="coinsFromSavings" fill="#82ca9d" name="Coins Needed with Savings" />
+          <Bar dataKey="coinsToFillRoom" fill="#8884D8" name="Coins to Fill Room" />
+          <Bar dataKey="coinsFromSavings" fill="#82CA9D" name="Coins Needed with Savings" />
         </BarChart>
       </ResponsiveContainer>
     </div>
