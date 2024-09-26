@@ -1,31 +1,57 @@
-.basement {
+.basement-container {
   background-color: #fffacd; /* LemonChiffon */
-  width: 60%; /* Take up more of the page */
+  width: 80%; /* Take up more of the page */
   padding: 40px;
   border-radius: 10px;
   margin: 50px auto; /* Center the container */
   text-align: center;
 }
 
-.basement h1 {
+.basement-container h2 {
   color: #daa520; /* GoldenRod */
 }
 
-.basement div {
-  margin-bottom: 20px;
-  font-size: large;
+.basement-container h3 {
+  color: #8b4513; /* SaddleBrown */
+  margin-top: 30px;
 }
 
-.basement button {
+.basement-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.basement-container li {
+  background-color: #f0e68c; /* Khaki */
+  border: 2px solid #daa520; /* GoldenRod */
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.basement-container li:hover {
+  transform: scale(1.05);
+}
+
+.basement-container p {
+  margin: 10px 0;
+  font-size: 1.1em;
+}
+
+.basement-container button {
   width: 40%; /* Adjust width to fit the larger container */
-  background-color: #add8e6; /* light blue */
+  background-color: #add8e6; /* Light Blue */
   border: none;
   border-radius: 5px;
   padding: 15px;
   margin: 10px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.basement button:hover {
-  background-color: #87ceeb; /* sky blue */
+.basement-container button:hover {
+  background-color: #87ceeb; /* Sky Blue */
 }
+
