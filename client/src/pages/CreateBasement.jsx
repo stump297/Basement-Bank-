@@ -20,7 +20,7 @@ const CreateBasement = () => {
 
   const handleCreate = async () => {
     try {
-      const user = dataUser?.getUser; // Get the user from the query response
+      const user = dataUser?.getUser;
 
       if (!user) {
         throw new Error("User not found. Please log in.");
@@ -30,16 +30,15 @@ const CreateBasement = () => {
 
       const { data } = await addRoom({
         variables: {
-          user, // Pass the user object to the mutation
-          volume: volume, // Calculated volume based on the dimensions input
-          description: description, // Room description
-          savings: parseFloat(savings), // User-inputted savings
+          user,
+          volume: volume,
+          description: description,
+          savings: parseFloat(savings),
         }
       });
 
       console.log('Room added:', data.addRoom);
 
-      // Reset form fields after successful room creation
       setHeight('');
       setLength('');
       setWidth('');
@@ -52,7 +51,7 @@ const CreateBasement = () => {
 
   const handleReturn = () => {
     try {
-      window.location.assign('/my-basements'); // Redirect to the user's basements page
+      window.location.assign('/my-basements');
     } catch (error) {
       console.error('Error in moving:', error);
     }
